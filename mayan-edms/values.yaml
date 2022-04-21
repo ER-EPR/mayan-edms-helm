@@ -425,6 +425,8 @@ rabbitmq:
   auth:
     username: mayan
     password: mayanrabbitmqpassword
+  clustering:
+    forceBoot: true     
   enabled: true
   ingress:
     enabled: false

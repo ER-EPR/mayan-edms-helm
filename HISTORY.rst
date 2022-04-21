@@ -1,3 +1,8 @@
+4.2-2 (2022-04-21)
+==================
+- Add RabbitMQ `forceBoot` to ensure the stateful set
+  does not remain in a degraded state after an upgrade.
+
 4.2 (2022-03-29)
 ================
 - Update for Mayan EDMS 4.2.
