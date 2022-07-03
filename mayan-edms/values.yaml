@@ -122,9 +122,6 @@ ingress:
     /:
       serviceName: frontend
       servicePort: 8000
-    /flower:
-      serviceName: flower
-      servicePort: 5555
   #tls:
   #  - secretName:
   #    hosts:
@@ -338,53 +335,6 @@ beat:
       #memory: "500Mi"
 
 
-#################
-# Celery Flower #
-#################
-
-flower:
-  auth:
-    enabled: false
-    accounts:
-      - admin: floweradmin
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
-  # nameOverride: frontend
-  # chartNameSuffix: frontend
-  ingress:
-    enabled: enabled
-    annotations: {}
-    hosts:
-      - host: flower.mayan.minikube
-        paths: [/]
-    tls: []
-    #  - secretName: mayan-tls
-    #    hosts:
-    #      - flower.mayan.minikube
-  replicaCount: 1
-  resources:
-    requests: {}
-      #cpu: "125m"
-      #memory: "128Mi"
-  securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-    # fsGroup: 999
-  service:
-    type: ClusterIP
-    port: 5555
-  # urlPrefix must match the path of the main ingress mapped to Flower
-  # urlPrefix: flower
-
-
 ################################
 # 3rd pary services in cluster #
 ################################
@@ -426,7 +376,7 @@ rabbitmq:
     username: mayan
     password: mayanrabbitmqpassword
   clustering:
-    forceBoot: true     
+    forceBoot: true
   enabled: true
   ingress:
     enabled: false
