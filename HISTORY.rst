@@ -1,3 +1,7 @@
+4.2-3 (2022-07-02)
+==================
+- Update dependencies.
+
 4.2-2 (2022-04-21)
 ==================
 - Add RabbitMQ `forceBoot` to ensure the stateful set
