@@ -154,7 +154,7 @@ frontend:
     #  - secretName: mayan-tls
     #    hosts:
     #      - mayan.minikube
-  replicaCount: 2
+  replicaCount: 1
   resources:
     limits: {}
       # cpu: "750m"
@@ -191,7 +191,7 @@ workers:
     extraArguments: []
     internalName: worker_a
     nameSuffix: worker-a
-    replicaCount: 2
+    replicaCount: 
     resources:
       limits: {}
         # cpu: "500m"
@@ -218,7 +218,7 @@ workers:
     extraArguments: []
     internalName: worker_b
     nameSuffix: worker-b
-    replicaCount: 2
+    replicaCount: 1
     resources:
       limits: {}
         # cpu: "500m"
@@ -245,7 +245,7 @@ workers:
     extraArguments: []
     internalName: worker_c
     nameSuffix: worker-c
-    replicaCount: 2
+    replicaCount: 1
     resources:
       limits: {}
         # cpu: "125m"
@@ -333,76 +333,6 @@ beat:
     limits: {}
       #cpu: "125m"
       #memory: "500Mi"
-
-
-################################
-# 3rd pary services in cluster #
-################################
-
-minio:
-  defaultBuckets: mayan
-  enabled: false
-  accessKey:
-    password: minioAccessKey
-  secretKey:
-    password: minioSecretKey
-  ingress:
-    enabled: true
-    hosts:
-      - name: minio.mayan.minikube
-  persistence:
-    size: 500Mi
-  # volumePermissions:
-  #   enabled: false
-
-postgresql:
-  enabled: true
-  # nameOverride: postgresql
-  postgresqlDatabase: mayan
-  postgresqlUsername: mayan
-  postgresqlPassword: mayandbpass
-  postgresqlPostgresPassword: mayandbpass
-  persistence:
-    size: 500Mi
-  # livenessProbe:
-  #   enabled: false
-  # readinessProbe:
-  #   enabled: false
-  # volumePermissions:
-  #   enabled: false
-
-rabbitmq:
-  auth:
-    username: mayan
-    password: mayanrabbitmqpassword
-  clustering:
-    forceBoot: true
-  enabled: true
-  ingress:
-    enabled: false
-    hostname: rabbit.mayan.minikube
-  # livenessProbe:
-  #  enabled: false
-  persistence:
-    size: 500Mi
-  # readinessProbe:
-    #  enabled: false
-  # service:
-  #   port: 5671
-  # volumePermissions:
-  #   enabled: false
-
-redis:
-  enabled: true
-  password: mayanredispassword
-  master:
-    persistence:
-      size: 500Mi
-  slave:
-    persistence:
-      size: 500Mi
-  # volumePermissions:
-  #   enabled: true
 
 
 ##########
