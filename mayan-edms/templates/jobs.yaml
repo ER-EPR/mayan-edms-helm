@@ -22,7 +22,6 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
         helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     spec:
-      restartPolicy: Never
       containers:
       - name: {{ .Chart.Name }}-initialsetup
         image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag | default .Chart.AppVersion }}"
@@ -39,6 +38,11 @@ spec:
             mountPath: /var/lib/mayan
           - name: mayan-tmp
             mountPath: /tmp
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: Never
       volumes:
         - name: mayan-media
           persistentVolumeClaim:
@@ -70,7 +74,6 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name | quote }}
         helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     spec:
-      restartPolicy: Never
       containers:
       - name: {{ .Chart.Name }}-performupgrade
         image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag | default .Chart.AppVersion }}"
@@ -87,6 +90,11 @@ spec:
             mountPath: /var/lib/mayan
           - name: mayan-tmp
             mountPath: /tmp
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: Never
       volumes:
         - name: mayan-media
           persistentVolumeClaim:

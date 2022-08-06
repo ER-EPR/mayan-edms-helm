@@ -154,14 +154,14 @@ frontend:
     #  - secretName: mayan-tls
     #    hosts:
     #      - mayan.minikube
-  replicaCount: 2
+  replicaCount: 1
   resources:
-    limits: {}
-      # cpu: "750m"
-      # memory: "750Mi"
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+    limits:
+      cpu: 1000m
+      memory: 1200Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi
   securityContext: {}
     # capabilities:
     #   drop:
@@ -191,14 +191,14 @@ workers:
     extraArguments: []
     internalName: worker_a
     nameSuffix: worker-a
-    replicaCount: 2
+    replicaCount: 1
     resources:
-      limits: {}
-        # cpu: "500m"
-        # memory: "1.5Gi"
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      limits:
+        cpu: 1800m
+        memory: 1800Mi
+      requests:
+        cpu: 400m
+        memory: 1000Mi
     securityContext: {}
       # capabilities:
       #   drop:
@@ -218,14 +218,14 @@ workers:
     extraArguments: []
     internalName: worker_b
     nameSuffix: worker-b
-    replicaCount: 2
+    replicaCount: 1
     resources:
-      limits: {}
-        # cpu: "500m"
-        # memory: "1Gi"
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      limits:
+        cpu: 1800m
+        memory: 1800Mi
+      requests:
+        cpu: 500m
+        memory: 1000Mi
     securityContext: {}
       # capabilities:
       #   drop:
@@ -245,14 +245,14 @@ workers:
     extraArguments: []
     internalName: worker_c
     nameSuffix: worker-c
-    replicaCount: 2
+    replicaCount: 1
     resources:
-      limits: {}
-        # cpu: "125m"
-        # memory: "1.25Gi"
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      limits:
+        cpu: 1800m
+        memory: 1800Mi
+      requests:
+        cpu: 700m
+        memory: 1000Mi
     securityContext: {}
       # capabilities:
       #   drop:
@@ -274,12 +274,12 @@ workers:
     nameSuffix: worker-d
     replicaCount: 1
     resources:
-      limits: {}
-        # cpu: "125m"
-        # memory: "1.25Gi"
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      limits:
+        cpu: 1800m
+        memory: 1800Mi
+      requests:
+        cpu: 700m
+        memory: 768Mi
     securityContext: {}
       # capabilities:
       #   drop:

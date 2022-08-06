@@ -1,3 +1,10 @@
+4.2-4 (2022-08-06)
+==================
+- Sort deployment YAML keys.
+- Fix jobs image pull secrets.
+- Lower default replica counts to 1.
+- Add resource limits to pods.
+
 4.2-3 (2022-07-02)
 ==================
 - Update dependencies.
