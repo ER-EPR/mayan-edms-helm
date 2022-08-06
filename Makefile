@@ -17,11 +17,11 @@ minikube-uninstall: ## Uninstall the development release from the local minikube
 minikube-uninstall:
 	helm uninstall development
 
+
 helm-package: ## Create a Helm repository package.
-helm-package: 
+helm-package:
 	helm package mayan-edms --app-version ${HELM_PACKAGE_VERSION} --destination ./build
 	helm repo index build/ --url ${HELM_REPO_URL}
-
 
 kubectl-namespace-create:
 	kubectl create namespace mayan-edms-testing || true
@@ -47,11 +47,12 @@ testing-mayan-install: kubectl-namespace-create
 	configuration.MAYAN_VIEWS_PAGINATE_BY=12 \
 	--timeout 15m
 
+
 testing-mayan-uninstall: ## Uninstall testing PostgreSQL
 testing-mayan-uninstall:
 	helm uninstall mayan --namespace mayan-edms-testing; \
 	kubectl delete jobs.batch mayan-initialsetup
-    
+
 
 testing-postgresql-install: ## Install testing PostgreSQL
 testing-postgresql-install: kubectl-namespace-create
