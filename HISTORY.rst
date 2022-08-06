@@ -4,6 +4,8 @@
 - Fix jobs image pull secrets.
 - Lower default replica counts to 1.
 - Add resource limits to pods.
+- Update path to the Redis password for versions
+  => 6.0.
 
 4.2-3 (2022-07-02)
 ==================
