@@ -1,3 +1,14 @@
+4.3-1 (2022-08-06)
+==================
+- Add support for disabling core volume.
+- Fix image pull secret.
+- Update Mayan EDMS to 4.3.
+- Convert to a single app helm chart that deploys only mayan EDMS.
+  Removed managed settings.
+- Fix restart policy of the initial setup and perform upgrade jobs.
+- Add resource limits to all pods.
+- Lower default replica count of all pods to 1.
+
 4.2-3 (2022-07-02)
 ==================
 - Update dependencies.

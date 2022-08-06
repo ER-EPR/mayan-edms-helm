@@ -16,12 +16,6 @@ supported via the commercial support offerings (https://www.mayan-edms.com/suppo
 Installation
 ============
 
-#. Fetch the sub charts:
-
-   .. code-block:: console
-
-       helm dependency update
-
 #. Install an initial release:
 
    .. code-block:: console
@@ -47,6 +41,16 @@ Upgrade
     helm upgrade <release name> mayan-edms --timeout 15m
 
 
+Install or upgrade
+==================
+
+#. Performs an installation or an upgrade
+
+.. code-block:: console
+
+    helm upgrade --install --values freenas-nfs.yaml --timeout 15m <release name> mayan-edms
+
+
 Uninstall
 =========
 
@@ -67,23 +71,12 @@ Chart layout
 
 Default values:
 
-- 2 front end pods, port 8000, host: mayan.minikube
-- 2 A class workers pods
-- 2 B class workers pods
-- 2 C class workers pods
+- 1 front end pods, port 8000, host: mayan.minikube
+- 1 A class workers pods
+- 1 B class workers pods
+- 1 C class workers pods
 - 1 D class workers pods
 - 1 scheduled task beat generator pods
-- 2 Celery flower dashboard pods, port 5555, host: flower.mayan.minikube
-
-Additional services deployed by default:
-
-- PostgreSQL
-- RabbitMQ
-- Redis
-
-Optional services:
-
-- Minio
 
 
 ==========
@@ -220,134 +213,6 @@ Core
 
   Create a persistent volume resource. This is used for storage
   implementations that do not support automatic provisioning.
-
-
-Document file storage
-^^^^^^^^^^^^^^^^^^^^^
-
-- ``persistence.documentsFileStorage.type``
-
-  One of the three document file storage configuration options:
-
-  - ``default`` - Use the ``media`` folder as set by the ``core`` component.
-  - ``objectLocal`` - As an object storage to the local Minio service.
-    Secrets parameter is automatically set via the
-    ``persistence.documentsFileStorage.argumentMap`` which in turn setup the
-    ``MAYAN_DOCUMENTS_FILE_STORAGE_BACKEND_ARGUMENTS`` environment variable.
-    The necessary Python packages are downloaded to support S3 object storage
-    connection via the ``MAYAN_PIP_INSTALLS`` environment variable.
-  - ``objectExternal`` - As an object storage to an external. This requires
-    additional setup ``persistence.documentsFileStorage.argumentMap`` or via
-    ``persistence.documentsFileStorage.argument`` options.
-    The necessary Python packages are downloaded to support S3 object
-    storage connection via the ``MAYAN_PIP_INSTALLS`` environment variable.
-  - ``custom`` - Allows setting the ``MAYAN_DOCUMENTS_FILE_STORAGE_BACKEND`` via
-    the ``documentsFileStorage.backend`` option.
-
-- ``persistence.documentsFileStorage.backend``
-
-  Value to pass to the ``MAYAN_DOCUMENTS_FILE_STORAGE_BACKEND`` environment
-  variable. Only used when the ``persistence.documentsFileStorage.type`` option is
-  set to ``custom``.
-
-- ``persistence.documentsFileStorage.argument``
-
-  Value to pass to the ``MAYAN_DOCUMENTS_FILE_STORAGE_BACKEND_ARGUMENTS``
-  environment variable. Only used when the ``persistence.documentsFileStorage.type``
-  option is set to ``objectExternal`` or ``custom``.
-
-- ``persistence.documentsFileStorage.argumentMap``
-
-  Key and value pairs to pass to the
-  ``MAYAN_DOCUMENTS_FILE_STORAGE_BACKEND_ARGUMENTS`` environment variable. Only
-  used when the ``persistence.documentsFileStorage.type`` option is set to
-  ``objectExternal`` or ``custom``.
-
-
-Document file page image cache storage
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-- ``persistence.documentsFilePageImageCacheStorage.type``
-
-  One of the three document file storage configuration options:
-
-  - ``default`` - Use the ``media`` folder as set by the ``core`` component.
-  - ``objectLocal`` - As an object storage to the local Minio service.
-    Secrets parameter is automatically set via the
-    ``persistence.documentsFilePageImageCacheStorage.argumentMap`` which in
-    turn setup the ``MAYAN_DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND_ARGUMENTS``
-    environment variable. The necessary Python packages are downloaded to
-    support S3 object storage connection via the ``MAYAN_PIP_INSTALLS``
-    environment variable.
-  - ``objectExternal`` - As an object storage to an external. This requires
-    additional setup ``persistence.documentsFilePageImageCacheStorage.argumentMap`` or via
-    ``persistence.documentsFilePageImageCacheStorage.argument`` options.
-    The necessary Python packages are downloaded to support S3 object
-    storage connection via the ``MAYAN_PIP_INSTALLS`` environment variable.
-  - ``custom`` - Allows setting the ``MAYAN_DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND`` via
-    the ``documentsFilePageImageCacheStorage.backend`` option.
-
-- ``persistence.documentsFilePageImageCacheStorage.backend``
-
-  Value to pass to the ``MAYAN_DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND`` environment
-  variable. Only used when the ``persistence.documentsFileStorage.type`` option is
-  set to ``custom``.
-
-- ``persistence.documentsFilePageImageCacheStorage.argument``
-
-  Value to pass to the ``MAYAN_DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND_ARGUMENTS``
-  environment variable. Only used when the ``persistence.documentsFilePageImageCacheStorage.type``
-  option is set to ``objectExternal`` or ``custom``.
-
-- ``persistence.documentsFilePageImageCacheStorage.argumentMap``
-
-  Key and value pairs to pass to the
-  ``MAYAN_DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND_ARGUMENTS`` environment variable. Only
-  used when the ``persistence.documentsFilePageImageCacheStorage.type`` option is set to
-  ``objectExternal`` or ``custom``.
-
-
-Document version page image cache storage
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-- ``persistence.documentsVersionPageImageCacheStorage.type``
-
-  One of the three document file storage configuration options:
-
-  - ``default`` - Use the ``media`` folder as set by the ``core`` component.
-  - ``objectLocal`` - As an object storage to the local Minio service.
-    Secrets parameter is automatically set via the
-    ``persistence.documentsVersionPageImageCacheStorage.argumentMap`` which in
-    turn setup the ``MAYAN_DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND_ARGUMENTS``
-    environment variable. The necessary Python packages are downloaded to
-    support S3 object storage connection via the ``MAYAN_PIP_INSTALLS``
-    environment variable.
-  - ``objectExternal`` - As an object storage to an external. This requires
-    additional setup ``persistence.documentsVersionPageImageCacheStorage.argumentMap`` or via
-    ``persistence.documentsVersionPageImageCacheStorage.argument`` options.
-    The necessary Python packages are downloaded to support S3 object
-    storage connection via the ``MAYAN_PIP_INSTALLS`` environment variable.
-  - ``custom`` - Allows setting the ``MAYAN_DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND`` via
-    the ``documentsVersionPageImageCacheStorage.backend`` option.
-
-- ``persistence.documentsVersionPageImageCacheStorage.backend``
-
-  Value to pass to the ``MAYAN_DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND`` environment
-  variable. Only used when the ``persistence.documentsFileStorage.type`` option is
-  set to ``custom``.
-
-- ``persistence.documentsVersionPageImageCacheStorage.argument``
-
-  Value to pass to the ``MAYAN_DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND_ARGUMENTS``
-  environment variable. Only used when the ``persistence.documentsVersionPageImageCacheStorage.type``
-  option is set to ``objectExternal`` or ``custom``.
-
-- ``persistence.documentsVersionPageImageCacheStorage.argumentMap``
-
-  Key and value pairs to pass to the
-  ``MAYAN_DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND_ARGUMENTS`` environment variable. Only
-  used when the ``persistence.documentsVersionPageImageCacheStorage.type`` option is set to
-  ``objectExternal`` or ``custom``.
 
 
 Frontend
