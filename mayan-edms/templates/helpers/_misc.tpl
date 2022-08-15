@@ -86,13 +86,20 @@ but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else 
 {{/*
 Generate an unique name for each domain of a release
 */}}
-{{- define "mayan.tlsUniqueName" -}}
+{{- define "mayan.tlsSecretUniqueName" -}}
 {{ include "mayan.fullname" . }}-{{ .Values.letsencrypt.domain | replace "." "-" }}-{{- if .Values.letsencrypt.production }}production{{ else }}staging{{- end }}
 {{- end }}
 
 {{/*
-Generate an unique secret name for each domain of a release
+Generate an unique private key secret name for each domain of a release
 */}}
-{{- define "mayan.tlsSecretUniqueName" -}}
-secret-{{ include "mayan.fullname" . }}-{{ .Values.letsencrypt.domain | replace "." "-" }}-{{- if .Values.letsencrypt.production }}production{{ else }}staging{{- end }}
+{{- define "mayan.tlsPrivateKeySecretUniqueName" -}}
+private-key-{{ include "mayan.fullname" . }}-{{ .Values.letsencrypt.domain | replace "." "-" }}-{{- if .Values.letsencrypt.production }}production{{ else }}staging{{- end }}
+{{- end }}
+
+{{/*
+Generate an unique name for each issuer
+*/}}
+{{- define "mayan.issuerUniqueName" -}}
+{{ include "mayan.fullname" . }}-issuer
 {{- end }}

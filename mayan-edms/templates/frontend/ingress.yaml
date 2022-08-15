@@ -13,7 +13,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- if .Values.letsencrypt.enabled }}
-    cert-manager.io/issuer: {{ include "mayan.tlsUniqueName" . }}
+    cert-manager.io/issuer: {{ include "mayan.issuerUniqueName" . }}
   {{- end }}
 spec:
   {{- if .Values.frontend.ingress.tls }}
@@ -29,7 +29,7 @@ spec:
   {{- if .Values.letsencrypt.enabled }}
   tls:
     - {{ .Values.letsencrypt.domain }}:
-      secretName: {{ include "mayan.tlsUniqueName" . }}
+      secretName: {{ include "mayan.tlsSecretUniqueName" . }}
       hosts: [{{ .Values.letsencrypt.domain }}]
   {{- end }}
   rules:

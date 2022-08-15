@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: {{ include "mayan.tlsUniqueName" . }}
+  name: {{ include "mayan.issuerUniqueName" . }}
 spec:
   acme:
     # You must replace this email address with your own.
@@ -16,7 +16,7 @@ spec:
     {{- end }}
     privateKeySecretRef:
       # Secret resource that will be used to store the account's private key.
-      name: {{ include "mayan.tlsSecretUniqueName" . }}
+      name: {{ include "mayan.tlsPrivateKeySecretUniqueName" . }}
     # Add a single challenge solver, HTTP01 using nginx
     solvers:
     - http01:
