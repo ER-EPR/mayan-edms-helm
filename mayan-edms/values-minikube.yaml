@@ -43,8 +43,9 @@ podSecurityContext: {}
 #################
 
 configuration:
+  MAYAN_COMMON_PROJECT_TITLE: "Mayan EDMS (minikube)"
   MAYAN_LOCK_MANAGER_BACKEND: mayan.apps.lock_manager.backends.redis_lock.RedisLock
-  MAYAN_COMMON_PROJECT_TITLE: "Mayan EDMS (Helm)"
+  MAYAN_SEARCH_BACKEND: 'mayan.apps.dynamic_search.backends.elasticsearch.ElasticSearchBackend'
 
 
 ###########
@@ -339,13 +340,57 @@ beat:
 # 3rd pary services in cluster #
 ################################
 
+elasticsearch:
+  # clusterDomain: custom.domain
+  coordinating:
+    replicaCount: 1
+    replicas: 1
+    resources:
+      limits: {}
+      requests:
+        cpu: 200m
+        memory: 768M
+  data:
+    persistence:
+      size: 20Gi
+    replicaCount: 1
+    replicas: 1
+    resources:
+      limits: {}
+      requests:
+        cpu: 300m
+        memory: 2000M
+  enabled: true
+  extraEnvVars:
+    - name: discovery.type
+      value: single-node
+    - name: ES_JAVA_OPTS
+      value: "-Xms256m -Xmx256m"
+  ingest:
+    replicaCount: 1
+    replicas: 1
+  master:
+    masterOnly: false
+    persistence:
+      size: 20Gi
+    replicaCount: 1
+    replicas: 1
+    resources:
+      limits: {}
+      requests:
+        cpu: 200m
+        memory: 768M
+  security:
+    elasticPassword: mayanespassword
+  volumePermissions:
+    enabled: true
+
 minio:
-  defaultBuckets: mayan
-  enabled: false
   accessKey:
     password: minioAccessKey
-  secretKey:
-    password: minioSecretKey
+  # clusterDomain: custom.domain
+  defaultBuckets: mayan
+  enabled: false
   ingress:
     enabled: true
     hosts:
@@ -354,16 +399,19 @@ minio:
     size: 500Mi
   # volumePermissions:
   #   enabled: false
+  secretKey:
+    password: minioSecretKey
 
 postgresql:
+  # clusterDomain: custom.domain
   enabled: true
   # nameOverride: postgresql
+  persistence:
+    size: 500Mi
   postgresqlDatabase: mayan
   postgresqlUsername: mayan
   postgresqlPassword: mayandbpass
   postgresqlPostgresPassword: mayandbpass
-  persistence:
-    size: 500Mi
   # livenessProbe:
   #   enabled: false
   # readinessProbe:
@@ -375,6 +423,7 @@ rabbitmq:
   auth:
     username: mayan
     password: mayanrabbitmqpassword
+  # clusterDomain: custom.domain
   clustering:
     forceBoot: true
   enabled: true
@@ -395,6 +444,8 @@ rabbitmq:
 redis:
   auth:
     password: mayanredispass
+  architecture: standalone
+  # clusterDomain: custom.domain
   enabled: true
   master:
     persistence:

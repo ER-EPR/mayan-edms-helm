@@ -1,3 +1,10 @@
+4.2-5 (2022-XX-XX)
+==================
+- Update minikube targets to use a separate namespace called `minikube`.
+  The Helm installation name is also now set to `minikube`.
+- Fix the Redis password entry.
+- Add separate values file for the minikube target.
+
 4.2-4 (2022-08-06)
 ==================
 - Sort deployment YAML keys.
