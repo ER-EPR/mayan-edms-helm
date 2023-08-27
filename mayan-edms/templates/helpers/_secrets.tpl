@@ -49,7 +49,7 @@ Generate the MAYAN_CELERY_BROKEN_URL environment variable
 MAYAN_CELERY_BROKER_URL: "{{- if .Values.rabbitmq.auth.tls.enabled -}}amqps{{- else -}}amqp{{- end -}}://{{ .Values.rabbitmq.auth.username }}:{{ .Values.rabbitmq.auth.password }}@{{ template "mayan.rabbitmq.host" . }}:{{- if .Values.rabbitmq.auth.tls.enabled -}}{{ .Values.rabbitmq.service.tlsPort }}{{- else -}}{{ .Values.rabbitmq.service.port }}{{- end -}}"
 {{- else -}}
 {{- if .Values.redis.enabled -}}
-MAYAN_CELERY_BROKER_URL: "redis://:{{ .Values.redis.password }}@{{ template "mayan.redis.host" . }}:{{ .Values.redis.redisPort }}/2"
+MAYAN_CELERY_BROKER_URL: "redis://:{{ .Values.redis.auth.password }}@{{ template "mayan.redis.host" . }}:{{ .Values.redis.redisPort }}/2"
 {{- else -}}
 MAYAN_CELERY_BROKER_URL: "{{ .Values.secrets.MAYAN_CELERY_BROKER_URL }}"
 {{- end -}}
@@ -68,7 +68,7 @@ Generate the MAYAN_CELERY_RESULT_BACKEND environment variable
 */}}
 {{- define "mayan.secrets.celeryResultBackend" -}}
 {{- if .Values.redis.enabled -}}
-MAYAN_CELERY_RESULT_BACKEND: "redis://:{{ .Values.redis.password }}@{{ template "mayan.redis.host" . }}:{{ .Values.redis.redisPort }}/0"
+MAYAN_CELERY_RESULT_BACKEND: "redis://:{{ .Values.redis.auth.password }}@{{ template "mayan.redis.host" . }}:{{ .Values.redis.redisPort }}/0"
 {{- else -}}
 MAYAN_CELERY_RESULT_BACKEND: "{{ .Values.secrets.MAYAN_CELERY_RESULT_BACKEND }}"
 {{- end -}}
@@ -79,7 +79,7 @@ Generate the MAYAN_DATABASES environment variable
 */}}
 {{- define "mayan.secrets.databases" -}}
 {{- if .Values.postgresql.enabled -}}
-MAYAN_DATABASES: "{'default':{'ENGINE':'django.db.backends.postgresql','NAME':'{{ .Values.postgresql.postgresqlDatabase }}','PASSWORD':'{{ .Values.postgresql.postgresqlPassword }}','USER':'{{ .Values.postgresql.postgresqlUsername }}','HOST':'{{ template "mayan.postgresql.fullname" . }}'}}"
+MAYAN_DATABASES: "{'default':{'ENGINE':'django.db.backends.postgresql','NAME':'{{ .Values.postgresql.auth.database }}','PASSWORD':'{{ .Values.postgresql.auth.password }}','USER':'{{ .Values.postgresql.auth.username }}','HOST':'{{ template "mayan.postgresql.fullname" . }}'}}"
 {{- else -}}
 MAYAN_DATABASES: "{{ .Values.secrets.MAYAN_DATABASES }}"
 {{- end -}}
@@ -110,7 +110,7 @@ Generate the MAYAN_DOCUMENTS_FILE_STORAGE_BACKEND_ARGUMENTS environment variable
 {{- if eq .Values.persistence.documentsFileStorage.type "default" -}}
 {{- else if eq .Values.persistence.documentsFileStorage.type "objectLocal" -}}
 {{- if .Values.minio.enabled -}}
-MAYAN_DOCUMENTS_FILE_STORAGE_BACKEND_ARGUMENTS: "{'endpoint_url':'http://{{ template "mayan.minio.host" . }}:{{ .Values.minio.service.port }}','access_key':'{{ .Values.minio.accessKey.password }}','secret_key':'{{ .Values.minio.secretKey.password }}','bucket_name':'{{ .Values.minio.defaultBuckets }}'}"
+MAYAN_DOCUMENTS_FILE_STORAGE_BACKEND_ARGUMENTS: "{'endpoint_url':'http://{{ template "mayan.minio.host" . }}:{{ .Values.minio.service.port }}','access_key':'{{ .Values.minio.auth.rootUser }}','secret_key':'{{ .Values.minio.auth.rootPassword }}','bucket_name':'{{ .Values.minio.defaultBuckets }}'}"
 {{- else -}}
 {{ fail "Must enable Minio to be able to use 'objectLocal' storage." }}
 {{- end -}}
@@ -192,7 +192,7 @@ Generate the MAYAN_LOCK_MANAGER_BACKEND_ARGUMENTS environment variable
 */}}
 {{- define "mayan.secrets.lockManagerBackendArguments" -}}
 {{- if .Values.redis.enabled -}}
-MAYAN_LOCK_MANAGER_BACKEND_ARGUMENTS: "{'redis_url':'redis://:{{ .Values.redis.password }}@{{ template "mayan.redis.host" . }}:{{ .Values.redis.redisPort }}/1'}"
+MAYAN_LOCK_MANAGER_BACKEND_ARGUMENTS: "{'redis_url':'redis://:{{ .Values.redis.auth.password }}@{{ template "mayan.redis.host" . }}:{{ .Values.redis.redisPort }}/1'}"
 {{- else -}}
 MAYAN_LOCK_MANAGER_BACKEND_ARGUMENTS: "{{ .Values.secrets.MAYAN_LOCK_MANAGER_BACKEND_ARGUMENTS }}"
 {{- end -}}
