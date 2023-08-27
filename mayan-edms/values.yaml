@@ -342,10 +342,9 @@ beat:
 minio:
   defaultBuckets: mayan
   enabled: false
-  accessKey:
-    password: minioAccessKey
-  secretKey:
-    password: minioSecretKey
+  auth:
+    rootUser: minioRootUser
+    rootPassword: minioRootPassword
   ingress:
     enabled: true
     hosts:
