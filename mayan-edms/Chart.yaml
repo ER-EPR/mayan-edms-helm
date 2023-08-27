@@ -3,24 +3,24 @@ appVersion: s4.2
 dependencies:
   - name: elasticsearch
     condition: elasticsearch.enabled
-    repository: https://charts.bitnami.com/bitnami
-    version: 17.9.29
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: ^19.11.0
   - name: minio
     condition: minio.enabled
-    repository: https://charts.bitnami.com/bitnami
-    version: 9.3.0
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: ^12.8.0
   - name: postgresql
     condition: postgresql.enabled
-    repository: https://charts.bitnami.com/bitnami
-    version: 10.16.2
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: ^12.10.0
   - name: rabbitmq
     condition: rabbitmq.enabled
-    repository: https://charts.bitnami.com/bitnami
-    version: 10.1.12
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: ^12.1.2
   - name: redis
     condition: redis.enabled
-    repository: https://charts.bitnami.com/bitnami
-    version: 16.13.2
+    repository: oci://registry-1.docker.io/bitnamicharts
+    version: ^18.0.0
 description: Official Helm chart for Mayan EDMS
 home: https://www.mayan-edms.com/
 icon: https://www.mayan-edms.com/favicon.ico
