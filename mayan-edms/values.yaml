@@ -358,12 +358,14 @@ minio:
 postgresql:
   enabled: true
   # nameOverride: postgresql
-  postgresqlDatabase: mayan
-  postgresqlUsername: mayan
-  postgresqlPassword: mayandbpass
-  postgresqlPostgresPassword: mayandbpass
-  persistence:
-    size: 500Mi
+  auth:
+    username: mayan
+    password: mayandbpass
+    postgresPassword: mayandbpass
+    database: mayan
+  primary:
+    persistence:
+      size: 500Mi
   # livenessProbe:
   #   enabled: false
   # readinessProbe:
