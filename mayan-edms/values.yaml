@@ -396,7 +396,8 @@ rabbitmq:
 
 redis:
   enabled: true
-  password: mayanredispassword
+  auth:
+    password: mayanredispassword
   master:
     persistence:
       size: 500Mi
