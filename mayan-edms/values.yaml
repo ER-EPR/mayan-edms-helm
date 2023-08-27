@@ -143,6 +143,7 @@ frontend:
   # chartNameSuffix: frontend
   ingress:
     annotations: {}
+    className: null
       # Enable the following annotation to disable NGINX request size limit
       # and allow large documents to be uploaded.
       # nginx.ingress.kubernetes.io/proxy-body-size: "0"
