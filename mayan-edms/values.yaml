@@ -116,6 +116,7 @@ persistence:
 
 ingress:
   annotations: {}
+  className: null
   enabled: false
   host: mayan.minikube
   paths:
