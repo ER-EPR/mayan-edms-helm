@@ -1,3 +1,7 @@
+# TODO: Found the hooks to be problematic, currently disabling them in the helm
+# install, so that it is possible to install Mayan with a pre-existing and
+# pre-loaded database. Think about a solution or better way of dealing with this.
+
 apiVersion: batch/v1
 kind: Job
 metadata:
