@@ -81,7 +81,14 @@ Generate the MAYAN_DATABASES environment variable
 {{- if .Values.postgresql.enabled -}}
 MAYAN_DATABASES: "{'default':{'ENGINE':'django.db.backends.postgresql','NAME':'{{ .Values.postgresql.auth.database }}','PASSWORD':'{{ .Values.postgresql.auth.password }}','USER':'{{ .Values.postgresql.auth.username }}','HOST':'{{ template "mayan.postgresql.fullname" . }}'}}"
 {{- else -}}
-MAYAN_DATABASES: "{{ .Values.secrets.MAYAN_DATABASES }}"
+MAYAN_DATABASES: >-
+  {'default': {
+  'ENGINE': 'django.db.backends.postgresql',
+  'NAME': '{{ .Values.postgresql.auth.database }}',
+  'PASSWORD': '{{ .Values.postgresql.auth.password }}',
+  'USER': '{{ .Values.postgresql.auth.username }}',
+  'HOST': '{{ .Values.postgresql.host }}',
+  }}
 {{- end -}}
 {{- end -}}
 

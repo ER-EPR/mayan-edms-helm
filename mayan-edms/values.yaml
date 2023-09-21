@@ -356,7 +356,10 @@ minio:
   # volumePermissions:
   #   enabled: false
 
+# -- The database configuration. Values are also required if the bundled
+# PostgrSQL is disabled.
 postgresql:
+  # -- Enable or disable the bundled PostgreSQL
   enabled: true
   # nameOverride: postgresql
   auth:
@@ -364,6 +367,8 @@ postgresql:
     password: mayandbpass
     postgresPassword: mayandbpass
     database: mayan
+    # -- The host has to be configured when you want to use an existing database
+    host: null
   primary:
     persistence:
       size: 500Mi
