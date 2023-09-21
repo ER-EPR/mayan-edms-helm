@@ -87,7 +87,7 @@ MAYAN_DATABASES: >-
   'NAME': '{{ .Values.postgresql.auth.database }}',
   'PASSWORD': '{{ .Values.postgresql.auth.password }}',
   'USER': '{{ .Values.postgresql.auth.username }}',
-  'HOST': '{{ .Values.postgresql.host }}',
+  'HOST': '{{ .Values.postgresql.auth.host }}',
   }}
 {{- end -}}
 {{- end -}}
