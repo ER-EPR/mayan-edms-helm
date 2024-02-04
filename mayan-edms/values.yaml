@@ -290,6 +290,33 @@ workers:
       # runAsNonRoot: true
       # runAsUser: 1000
       # fsGroup: 999
+  worker-e:
+    autoscaling:
+      enabled: false
+      minReplicas: 1
+      maxReplicas: 100
+      targetCPUUtilizationPercentage: 80
+      # targetMemoryUtilizationPercentage: 80
+    # nameOverride: frontend
+    extraArguments: []
+    internalName: worker_e
+    nameSuffix: worker-e
+    replicaCount: 1
+    resources:
+      limits: {}
+        # cpu: "125m"
+        # memory: "1.25Gi"
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+    securityContext: {}
+      # capabilities:
+      #   drop:
+      #   - ALL
+      # readOnlyRootFilesystem: true
+      # runAsNonRoot: true
+      # runAsUser: 1000
+      # fsGroup: 999
 
 
 extraContainers:
