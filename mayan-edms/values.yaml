@@ -45,7 +45,9 @@ podSecurityContext: {}
 configuration:
   MAYAN_LOCK_MANAGER_BACKEND: mayan.apps.lock_manager.backends.redis_lock.RedisLock
   MAYAN_COMMON_PROJECT_TITLE: "Mayan EDMS (Helm)"
-
+  # the full url of this instance must be set for version 4.6 and above, 
+  # change the following according to your setting, http or https, and domain or IP
+  MAYAN_CSRF_TRUSTED_ORIGINS: '[''https://edms.example.com'',''http://localhost/'',]'
 
 ###########
 # Secrets #
